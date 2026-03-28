@@ -6,34 +6,31 @@
   <title>Contact — NeatNest Home</title>
   <meta name="description" content="Get in touch with NeatNest Home. Questions, feedback, collaboration inquiries — we'd love to hear from you." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>" />
 </head>
 <body>
 
-<!-- ── HEADER ── -->
+<div class="disclosure-top">
+  NeatNest Home participates in the Amazon Associates Program. We earn from qualifying purchases at no extra cost to you. <a href="disclosure.html">Full disclosure</a>
+</div>
+
 <header class="site-header">
   <div class="nav-inner">
-    <a href="index.html" class="logo">🏡 NeatNest <span>Home</span></a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="posts/pantry-organization-guide.html">Pantry</a></li>
-      <li><a href="posts/closet-system-review.html">Closets</a></li>
-      <li><a href="posts/10-minute-declutter.html">Declutter</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-nav">Pinterest ↗</a></li>
-    </ul>
+    <a href="index.html" class="logo">NeatNest <span>Home</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#products">Products</a>
+      <a href="index.html#rooms">By Room</a>
+      <a href="index.html#blog">Blog</a>
+      <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="nav-pinterest">Pinterest</a>
+    </nav>
   </div>
 </header>
 
-<!-- ── PAGE HERO ── -->
 <div class="page-hero">
   <div class="container--narrow">
-    <div class="breadcrumb" style="justify-content:center;">
+    <div class="breadcrumb">
       <a href="index.html">Home</a>
-      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-sep">&rsaquo;</span>
       <span>Contact</span>
     </div>
     <h1>Get in Touch</h1>
@@ -41,42 +38,36 @@
   </div>
 </div>
 
-<!-- ── CONTACT CONTENT ── -->
 <div class="page-content">
   <div class="container" style="max-width:900px;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;">
 
-      <!-- Left: Info -->
       <div>
         <h2 style="margin-top:0;">We're Here to Help</h2>
         <p>Whether you have a question about one of our product recommendations, want to share your own organization win, or are interested in working together — we're genuinely happy to hear from you.</p>
 
         <div style="margin:2rem 0;">
           <div style="display:flex; gap:1rem; margin-bottom:1.25rem; align-items:flex-start;">
-            <div style="font-size:1.75rem; flex-shrink:0; line-height:1;">📬</div>
             <div>
               <h4 style="margin-bottom:.25rem;">General Questions</h4>
               <p style="font-size:.9rem; color:var(--muted); margin:0;">Product recommendations, organization advice, or anything on your mind.</p>
             </div>
           </div>
           <div style="display:flex; gap:1rem; margin-bottom:1.25rem; align-items:flex-start;">
-            <div style="font-size:1.75rem; flex-shrink:0; line-height:1;">🤝</div>
             <div>
               <h4 style="margin-bottom:.25rem;">Collaboration &amp; Partnerships</h4>
               <p style="font-size:.9rem; color:var(--muted); margin:0;">Brand partnerships, product reviews, or content collaborations — use the form and select "Collaboration" as the subject.</p>
             </div>
           </div>
           <div style="display:flex; gap:1rem; margin-bottom:1.25rem; align-items:flex-start;">
-            <div style="font-size:1.75rem; flex-shrink:0; line-height:1;">📌</div>
             <div>
               <h4 style="margin-bottom:.25rem;">Pinterest</h4>
-              <p style="font-size:.9rem; color:var(--muted); margin:0;">Follow us for daily organization ideas and product picks: <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">@neatnesthome</a></p>
+              <p style="font-size:.9rem; color:var(--muted); margin:0;">Follow us for daily organization ideas and product picks: <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">@NeetNestHome</a></p>
             </div>
           </div>
         </div>
 
         <div class="tip-box">
-          <span class="tip-box-icon">⏱️</span>
           <p><strong>Response time:</strong> We aim to reply to all messages within 2 business days.</p>
         </div>
 
@@ -88,12 +79,10 @@
         </div>
       </div>
 
-      <!-- Right: Form -->
       <div>
         <div class="contact-form">
           <h3 style="margin-bottom:1.5rem; font-size:1.25rem;">Send a Message</h3>
           <form action="https://formsubmit.co/neatnesthome@gmail.com" method="POST" id="contactForm">
-            <!-- FormSubmit honeypot -->
             <input type="text" name="_honey" style="display:none" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_next" value="https://neatnesthome.github.io/contact.html?sent=true" />
@@ -117,7 +106,7 @@
             <div class="form-group">
               <label for="subject">Subject *</label>
               <select id="subject" name="subject" required>
-                <option value="" disabled selected>Select a subject…</option>
+                <option value="" disabled selected>Select a subject&hellip;</option>
                 <option value="General Question">General Question</option>
                 <option value="Product Recommendation">Product Recommendation Request</option>
                 <option value="Collaboration">Collaboration / Partnership</option>
@@ -128,17 +117,15 @@
 
             <div class="form-group">
               <label for="message">Message *</label>
-              <textarea id="message" name="message" required placeholder="Tell us what's on your mind…"></textarea>
+              <textarea id="message" name="message" required placeholder="Tell us what's on your mind&hellip;"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:100%; font-size:1rem; padding:.85rem;">
-              Send Message →
+              Send Message &rarr;
             </button>
           </form>
 
-          <!-- Success message (shown via URL param) -->
           <div id="successMsg" style="display:none; background:#e8f3e8; border-radius:8px; padding:1.25rem; text-align:center; margin-top:1rem;">
-            <div style="font-size:2rem; margin-bottom:.5rem;">✅</div>
             <strong>Message sent!</strong><br>
             <span style="font-size:.9rem; color:var(--muted);">We'll get back to you within 2 business days.</span>
           </div>
@@ -149,64 +136,70 @@
   </div>
 </div>
 
-<!-- ── PINTEREST ── -->
-<section class="pinterest-strip">
+<div class="pinterest-strip">
   <div class="container">
-    <h2>📌 Follow Us on Pinterest</h2>
+    <h2>Follow Us on Pinterest</h2>
     <p>Daily organization ideas, product picks, and before-and-afters. Save the boards you love.</p>
     <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-pinterest">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-      Follow @neatnesthome
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      Follow @NeetNestHome
     </a>
   </div>
-</section>
+</div>
 
-<!-- ── FOOTER ── -->
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo" style="color:#fff;">🏡 NeatNest <span style="color:var(--sage);">Home</span></a>
-      <p>Practical home storage and organization ideas for real people. We earn commissions on qualifying Amazon purchases — thank you for supporting us!</p>
+      <a href="index.html" class="logo logo-white">NeatNest <span>Home</span></a>
+      <p>Practical home storage and organization ideas for real people. We earn commissions on qualifying Amazon purchases.</p>
     </div>
     <div class="footer-col">
-      <h4>Posts</h4>
+      <h4>Browse</h4>
       <ul>
-        <li><a href="posts/pantry-organization-guide.html">Pantry Guide</a></li>
-        <li><a href="posts/closet-system-review.html">Closet Review</a></li>
-        <li><a href="posts/10-minute-declutter.html">10-Minute Declutter</a></li>
+        <li><a href="index.html#products">This Week's Picks</a></li>
+        <li><a href="index.html#rooms">By Room</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#archive">Past Favorites</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Legal &amp; Info</h4>
+      <h4>Rooms</h4>
+      <ul>
+        <li><a href="rooms/kitchen.html">Kitchen &amp; Pantry</a></li>
+        <li><a href="rooms/closet.html">Closet &amp; Bedroom</a></li>
+        <li><a href="rooms/bathroom.html">Bathroom</a></li>
+        <li><a href="rooms/office.html">Home Office</a></li>
+        <li><a href="rooms/living-room.html">Living Room</a></li>
+        <li><a href="rooms/garage.html">Garage</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
       <ul>
         <li><a href="disclosure.html">Affiliate Disclosure</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">Pinterest ↗</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 NeatNest Home. All rights reserved. | Amazon Associate — we earn from qualifying purchases. <a href="disclosure.html" style="color:rgba(255,255,255,.6);">Disclosure</a></p>
+    <div class="container">
+      <p>&copy; 2025 NeatNest Home &mdash; Amazon Associates Program participant. <a href="disclosure.html">Disclosure</a></p>
+    </div>
   </div>
 </footer>
 
 <script>
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
 
-  // Show success message if redirected back after form submit
   if (new URLSearchParams(window.location.search).get('sent') === 'true') {
     document.getElementById('successMsg').style.display = 'block';
     document.getElementById('contactForm').style.display = 'none';
   }
 </script>
 
-<!-- Mobile: stack contact layout -->
 <style>
   @media (max-width: 640px) {
     .page-content .container > div {
