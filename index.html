@@ -3,89 +3,306 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NeatNest Home — Home Storage &amp; Organization Ideas</title>
-  <meta name="description" content="Discover the best home storage and organization ideas, product reviews, and decluttering guides. Transform every room into a calm, beautiful space." />
+  <title>NeatNest Home — Home Storage &amp; Organization</title>
+  <meta name="description" content="Discover the best home storage and organization products, room-by-room guides, and weekly Amazon picks. Everything you need for a beautifully organized home." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>" />
 </head>
 <body>
 
-<!-- ── HEADER ── -->
+<!-- ── AFFILIATE DISCLOSURE BANNER ── -->
+<div class="disclosure-top">
+  NeatNest Home is a participant in the Amazon Services LLC Associates Program. We earn commissions on qualifying purchases &mdash; at no extra cost to you. <a href="disclosure.html">Full disclosure</a>
+</div>
+
+<!-- ── NAVIGATION ── -->
 <header class="site-header">
   <div class="nav-inner">
-    <a href="index.html" class="logo">🏡 NeatNest <span>Home</span></a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <a href="index.html" class="logo">NeatNest <span>Home</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="posts/pantry-organization-guide.html">Pantry</a></li>
-      <li><a href="posts/closet-system-review.html">Closets</a></li>
-      <li><a href="posts/10-minute-declutter.html">Declutter</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-nav">Pinterest ↗</a></li>
-    </ul>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#products">Products</a>
+      <a href="index.html#rooms">By Room</a>
+      <a href="index.html#blog">Blog</a>
+      <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="nav-pinterest">Pinterest</a>
+    </nav>
   </div>
 </header>
 
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="container">
-    <span class="hero-eyebrow">✨ Your Home, Beautifully Organized</span>
-    <h1>A Calm, Clutter-Free Home Is Closer Than You Think</h1>
-    <p>Honest product reviews, step-by-step guides, and expert tips to help you organize every corner of your home — without the overwhelm.</p>
+    <span class="hero-eyebrow">Home Storage &amp; Organization</span>
+    <h1>Your home,<br>beautifully organized.</h1>
+    <p class="lead">Weekly Amazon picks, room-by-room guides, and honest reviews to help you create a calm, clutter-free home without the overwhelm.</p>
     <div class="hero-actions">
-      <a href="posts/pantry-organization-guide.html" class="btn btn-primary">Browse Guides</a>
-      <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn btn-outline">Follow on Pinterest</a>
+      <a href="index.html#products" class="btn btn-primary">This Week's Picks</a>
+      <a href="index.html#rooms" class="btn btn-outline">Browse by Room</a>
     </div>
   </div>
 </section>
 
-<!-- ── FEATURED POSTS ── -->
-<section style="padding: 4.5rem 1.25rem; background: var(--cream);">
+<!--
+====================================
+WEEKLY PICKS - UPDATE EVERY MONDAY
+====================================
+To update products:
+1. Go to Amazon and find your product
+2. Find a relevant Unsplash image (unsplash.com) and copy the URL with ?w=400&q=80
+3. Get your affiliate link from the SiteStripe bar (Get Link > Text)
+4. Replace the img src="" with the new image URL
+5. Replace the product name, description, and price
+6. Replace the href on the "View on Amazon" button with your affiliate link
+7. Save the file and commit to GitHub
+====================================
+-->
+
+<!-- ── THIS WEEK'S TOP PICKS ── -->
+<section id="products" class="bg-white">
   <div class="container">
     <div class="section-header">
-      <h2>Latest Guides &amp; Reviews</h2>
-      <p>Deep-dive articles with real product recommendations to make organizing simple and satisfying.</p>
+      <span class="eyebrow">Updated Weekly</span>
+      <h2>This Week's Top Picks</h2>
+      <p>Our favorite Amazon finds this week — tested, curated, and affiliate-linked so you can shop easily.</p>
     </div>
-    <div class="card-grid card-grid--3">
 
-      <!-- Card 1 -->
-      <article class="card">
-        <div class="card-img" style="background: #e8f0e8; font-size:3.5rem; display:flex; align-items:center; justify-content:center; min-height:180px;">🥫</div>
-        <div class="card-body">
-          <span class="card-tag">Pantry Organization</span>
+    <div class="product-grid">
+
+      <!-- PRODUCT 1 — swap image, name, desc, price, and link each week -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80" alt="2-Tier Lazy Susan Cabinet Organizer" loading="lazy" />
+          <span class="badge">Kitchen</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">2-Tier Lazy Susan Cabinet Organizer</h3>
+          <p class="product-desc">Spin everything into reach instantly. Perfect for corner cabinets, spice shelves, and pantry shelves with a non-slip base that keeps items secure.</p>
+          <div class="product-footer">
+            <span class="product-price">$19.99</span>
+            <a href="https://www.amazon.com/s?k=2+tier+lazy+susan+cabinet+organizer&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 2 -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=400&q=80" alt="Clear Stackable Pantry Bins" loading="lazy" />
+          <span class="badge">Pantry</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Clear Stackable Pantry Bins (Set of 8)</h3>
+          <p class="product-desc">BPA-free, stackable bins with built-in handles. Group snacks, canned goods, and baking supplies so everything is visible at a glance.</p>
+          <div class="product-footer">
+            <span class="product-price">$34.99</span>
+            <a href="https://www.amazon.com/s?k=clear+stackable+pantry+bins+set&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 3 -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80" alt="Bamboo Desk Organizer with Drawers" loading="lazy" />
+          <span class="badge">Office</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Bamboo Desk Organizer with Drawers</h3>
+          <p class="product-desc">Keep pens, paperclips, and sticky notes tidy on your desktop. Two sliding drawers hide smaller items while the top shelf keeps essentials accessible.</p>
+          <div class="product-footer">
+            <span class="product-price">$29.99</span>
+            <a href="https://www.amazon.com/s?k=bamboo+desk+organizer+with+drawers&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 4 -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Woven Storage Baskets Set of 3" loading="lazy" />
+          <span class="badge">Living Room</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Woven Storage Baskets (Set of 3)</h3>
+          <p class="product-desc">Stylish seagrass baskets that look as good as they organize. Nest them when not in use or stack blankets, toys, and accessories inside.</p>
+          <div class="product-footer">
+            <span class="product-price">$39.99</span>
+            <a href="https://www.amazon.com/s?k=woven+seagrass+storage+baskets+set+of+3&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 5 -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Expandable Drawer Dividers Set of 6" loading="lazy" />
+          <span class="badge">Bedroom</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Expandable Drawer Dividers (Set of 6)</h3>
+          <p class="product-desc">Spring-loaded dividers that fit most standard drawer sizes. Finally keep socks, underwear, and accessories neatly separated without buying new furniture.</p>
+          <div class="product-footer">
+            <span class="product-price">$24.99</span>
+            <a href="https://www.amazon.com/s?k=expandable+drawer+dividers+organizer+set&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 6 -->
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Under-Sink Organizer with Pull-Out Shelf" loading="lazy" />
+          <span class="badge">Bathroom</span>
+          <span class="ad-badge">#ad</span>
+        </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Under-Sink Organizer with Pull-Out Shelf</h3>
+          <p class="product-desc">Two-tier pull-out design transforms the chaos under your bathroom or kitchen sink. Adjustable shelf fits around most plumbing pipes.</p>
+          <div class="product-footer">
+            <span class="product-price">$32.99</span>
+            <a href="https://www.amazon.com/s?k=under+sink+organizer+pull+out+shelf&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">View on Amazon</a>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /product-grid -->
+  </div>
+</section>
+
+<!-- ── BROWSE BY ROOM ── -->
+<section id="rooms" class="bg-warm">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Shop by Space</span>
+      <h2>Browse by Room</h2>
+      <p>Every room has its own organization challenges. Find curated solutions for yours.</p>
+    </div>
+    <div class="room-grid">
+
+      <a href="rooms/kitchen.html" class="room-card">
+        <div class="room-card-icon icon-kitchen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C17F3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3v4M12 3v4M16 3v4M4 9h16l-1.5 11H5.5L4 9z"/>
+          </svg>
+        </div>
+        <h3>Kitchen &amp; Pantry</h3>
+        <p>Clear bins, lazy susans, can racks, and airtight canisters for every cabinet.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+      <a href="rooms/closet.html" class="room-card">
+        <div class="room-card-icon icon-closet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9B7BB8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="14" rx="1"/>
+            <path d="M3 7l9-4 9 4M12 7v14M7 12h2M7 16h2M15 12h2M15 16h2"/>
+          </svg>
+        </div>
+        <h3>Closet &amp; Bedroom</h3>
+        <p>Slim hangers, shelf dividers, drawer organizers, and under-bed storage.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+      <a href="rooms/bathroom.html" class="room-card">
+        <div class="room-card-icon icon-bathroom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4A8FA8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12h16M4 12V9a2 2 0 014 0M20 12v3a8 8 0 01-16 0v-3"/>
+            <path d="M7 5v2"/>
+          </svg>
+        </div>
+        <h3>Bathroom</h3>
+        <p>Shower caddies, under-sink organizers, medicine cabinet dividers, and towel racks.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+      <a href="rooms/office.html" class="room-card">
+        <div class="room-card-icon icon-office">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5A8A5A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="13" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <h3>Home Office</h3>
+        <p>Desk organizers, cable management, file sorters, and charging stations.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+      <a href="rooms/living-room.html" class="room-card">
+        <div class="room-card-icon icon-living">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C17F3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10v4h18v-4M3 14v5M21 14v5M6 10V7h12v3"/>
+            <path d="M3 10a2 2 0 012-2M19 10a2 2 0 012 2"/>
+          </svg>
+        </div>
+        <h3>Living Room</h3>
+        <p>Storage ottomans, floating shelves, remote holders, and cord organizers.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+      <a href="rooms/garage.html" class="room-card">
+        <div class="room-card-icon icon-garage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6A6A6A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/>
+            <path d="M7 14h10M7 17h10M7 11h10"/>
+          </svg>
+        </div>
+        <h3>Garage</h3>
+        <p>Wall systems, utility shelving, pegboards, bike hooks, and heavy-duty bins.</p>
+        <span class="room-card-arrow">Explore &rarr;</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FROM THE BLOG ── -->
+<section id="blog" class="bg-cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Guides &amp; Tips</span>
+      <h2>From the Blog</h2>
+      <p>Deep-dive organization guides with product recommendations and step-by-step systems.</p>
+    </div>
+    <div class="blog-grid">
+
+      <article class="blog-card">
+        <div class="blog-card-img blog-img--pantry">
+          <span class="blog-img-label">Pantry Organization</span>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Pantry Organization</span>
           <h3><a href="posts/pantry-organization-guide.html">The Complete Pantry Organization Guide (2025)</a></h3>
-          <p>From lazy susans to clear canisters — everything you need to build a pantry that stays organized for good.</p>
-        </div>
-        <div class="card-footer">
-          <a href="posts/pantry-organization-guide.html" class="btn btn-secondary" style="font-size:.85rem; padding:.55rem 1.1rem;">Read Guide →</a>
+          <p>From lazy susans to airtight canisters — everything you need to build a pantry that stays organized for good.</p>
+          <a href="posts/pantry-organization-guide.html" class="read-more">Read the guide &rarr;</a>
         </div>
       </article>
 
-      <!-- Card 2 -->
-      <article class="card">
-        <div class="card-img" style="background: #ede8df; font-size:3.5rem; display:flex; align-items:center; justify-content:center; min-height:180px;">👗</div>
-        <div class="card-body">
-          <span class="card-tag">Closet Review</span>
+      <article class="blog-card">
+        <div class="blog-card-img blog-img--closet">
+          <span class="blog-img-label">Closet Systems</span>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Closet Review</span>
           <h3><a href="posts/closet-system-review.html">Best Closet Organization Systems Reviewed</a></h3>
-          <p>We tested IKEA PAX, Elfa, ClosetMaid, and more — here's the honest breakdown of each system.</p>
-        </div>
-        <div class="card-footer">
-          <a href="posts/closet-system-review.html" class="btn btn-secondary" style="font-size:.85rem; padding:.55rem 1.1rem;">Read Review →</a>
+          <p>We tested IKEA PAX, ClosetMaid, freestanding systems, and cube storage — here's the honest breakdown.</p>
+          <a href="posts/closet-system-review.html" class="read-more">Read the review &rarr;</a>
         </div>
       </article>
 
-      <!-- Card 3 -->
-      <article class="card">
-        <div class="card-img" style="background: #f5ede8; font-size:3.5rem; display:flex; align-items:center; justify-content:center; min-height:180px;">⏱️</div>
-        <div class="card-body">
-          <span class="card-tag">Quick Tips</span>
-          <h3><a href="posts/10-minute-declutter.html">The 10-Minute Declutter: Room-by-Room Checklist</a></h3>
-          <p>Ten minutes is all it takes. This checklist gets every room guest-ready without the stress spiral.</p>
+      <article class="blog-card">
+        <div class="blog-card-img blog-img--declutter">
+          <span class="blog-img-label">Quick Tips</span>
         </div>
-        <div class="card-footer">
-          <a href="posts/10-minute-declutter.html" class="btn btn-secondary" style="font-size:.85rem; padding:.55rem 1.1rem;">Get Checklist →</a>
+        <div class="blog-card-body">
+          <span class="blog-tag">Quick Tips</span>
+          <h3><a href="posts/10-minute-declutter.html">The 10-Minute Declutter: Room-by-Room Checklist</a></h3>
+          <p>Ten focused minutes per room gets your home guest-ready without the stress spiral or weekend sacrifice.</p>
+          <a href="posts/10-minute-declutter.html" class="read-more">Get the checklist &rarr;</a>
         </div>
       </article>
 
@@ -93,124 +310,141 @@
   </div>
 </section>
 
-<!-- ── TOP PICKS ── -->
-<section style="padding: 4.5rem 1.25rem; background: var(--warm);">
+<!-- PAST FAVORITES ARCHIVE - Add older weekly picks below to keep them visible on the site.
+     Same product card format as the Weekly Picks section above. -->
+
+<!-- ── PAST FAVORITES ── -->
+<section id="archive" class="bg-white">
   <div class="container">
     <div class="section-header">
-      <h2>Our Top Product Picks</h2>
-      <p>Tried-and-tested storage solutions hand-picked for every room in your home.</p>
+      <span class="eyebrow">Past Weeks</span>
+      <h2>Past Favorites</h2>
+      <p>Great products from previous weeks — still worth every penny.</p>
     </div>
-    <div class="card-grid card-grid--3">
 
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">🗂️</div>
-        <div>
-          <div class="card-tag">Best Seller</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Stackable Pantry Bins</h4>
-          <a href="https://www.amazon.com/s?k=stackable+pantry+bins+clear&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
-        </div>
-      </div>
+    <div class="archive-grid">
 
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">🧺</div>
-        <div>
-          <div class="card-tag">Editor's Pick</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Fabric Closet Organizer Cubes</h4>
-          <a href="https://www.amazon.com/s?k=fabric+closet+organizer+cubes&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Tension Shower Caddy" loading="lazy" />
+          <span class="badge">Bathroom</span>
+          <span class="ad-badge">#ad</span>
         </div>
-      </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Tension Pole Shower Caddy</h3>
+          <p class="product-desc">No drilling, no rust. Keeps your shower floor completely clear.</p>
+          <div class="product-footer">
+            <span class="product-price">$27.99</span>
+            <a href="https://www.amazon.com/s?k=tension+pole+shower+caddy&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">Amazon</a>
+          </div>
+        </div>
+      </article>
 
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">🔲</div>
-        <div>
-          <div class="card-tag">Most Versatile</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Over-Door Shoe &amp; Pocket Organizer</h4>
-          <a href="https://www.amazon.com/s?k=over+door+pocket+organizer&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Velvet Hangers 50-Pack" loading="lazy" />
+          <span class="badge">Closet</span>
+          <span class="ad-badge">#ad</span>
         </div>
-      </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Slim Velvet Hangers (50-Pack)</h3>
+          <p class="product-desc">Gain 30% more closet space instantly. Non-slip, ultra-thin.</p>
+          <div class="product-footer">
+            <span class="product-price">$18.99</span>
+            <a href="https://www.amazon.com/s?k=slim+velvet+hangers+50+pack&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">Amazon</a>
+          </div>
+        </div>
+      </article>
 
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">🏷️</div>
-        <div>
-          <div class="card-tag">Fan Favorite</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Label Maker &amp; Tape Bundle</h4>
-          <a href="https://www.amazon.com/s?k=label+maker+organization&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80" alt="Cable Management Box" loading="lazy" />
+          <span class="badge">Office</span>
+          <span class="ad-badge">#ad</span>
         </div>
-      </div>
+        <div class="product-card-body">
+          <h3 class="product-name">Cable Management Box</h3>
+          <p class="product-desc">Hide power strips and tangled cords in one clean box.</p>
+          <div class="product-footer">
+            <span class="product-price">$21.99</span>
+            <a href="https://www.amazon.com/s?k=cable+management+box+cord+organizer&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">Amazon</a>
+          </div>
+        </div>
+      </article>
 
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">🪜</div>
-        <div>
-          <div class="card-tag">Space Saver</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Tiered Under-Shelf Basket</h4>
-          <a href="https://www.amazon.com/s?k=under+shelf+basket+organizer&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
+      <article class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80" alt="Stackable Can Rack" loading="lazy" />
+          <span class="badge">Kitchen</span>
+          <span class="ad-badge">#ad</span>
         </div>
-      </div>
-
-      <div class="card" style="flex-direction:row; align-items:center; padding:1.25rem; gap:1rem;">
-        <div style="font-size:2.2rem; flex-shrink:0;">📦</div>
-        <div>
-          <div class="card-tag">Storage Hero</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">Vacuum Storage Bags (Set of 8)</h4>
-          <a href="https://www.amazon.com/s?k=vacuum+storage+bags+set&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem; padding:.45rem 1rem;">View on Amazon ↗</a>
+        <div class="product-card-body">
+          <h3 class="product-name">Stackable Can Rack Organizer</h3>
+          <p class="product-desc">First-in, first-out rotation. Holds up to 36 standard cans.</p>
+          <div class="product-footer">
+            <span class="product-price">$22.99</span>
+            <a href="https://www.amazon.com/s?k=stackable+can+rack+organizer+pantry&tag=neatnest00-20" target="_blank" rel="noopener sponsored" class="btn-amazon">Amazon</a>
+          </div>
         </div>
-      </div>
+      </article>
 
     </div>
-    <p style="text-align:center; margin-top:1.5rem; font-size:.82rem; color:var(--muted);">
-      <em>As an Amazon Associate I earn from qualifying purchases. <a href="disclosure.html">Full disclosure →</a></em>
-    </p>
   </div>
 </section>
 
-<!-- ── ABOUT STRIP ── -->
-<section class="about-strip">
+<!-- ── PINTEREST CTA ── -->
+<div class="pinterest-strip">
   <div class="container">
-    <h2>Why NeatNest Home?</h2>
-    <p>We believe a well-organized home doesn't have to cost a fortune or take a weekend. Every guide we write is practical, budget-conscious, and rooted in real-life testing — no sponsored fluff.</p>
-    <a href="contact.html" class="btn btn-outline">Get in Touch</a>
-  </div>
-</section>
-
-<!-- ── PINTEREST ── -->
-<section class="pinterest-strip">
-  <div class="container">
-    <h2>📌 Get More Inspiration on Pinterest</h2>
-    <p>Follow along for daily organization ideas, before-and-afters, and product round-ups.</p>
+    <h2>Follow Along on Pinterest</h2>
+    <p>Daily organization ideas, before-and-afters, and product round-ups — all in one place.</p>
     <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-pinterest">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-      Follow @neatnesthome
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      Follow @NeetNestHome
     </a>
   </div>
-</section>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo" style="color:#fff;">🏡 NeatNest <span style="color:var(--sage);">Home</span></a>
-      <p>Practical home storage and organization ideas for real people. We earn commissions on qualifying Amazon purchases — thank you for supporting us!</p>
+      <a href="index.html" class="logo logo-white">NeatNest <span>Home</span></a>
+      <p>Practical home storage and organization ideas for real people. We earn commissions on qualifying Amazon purchases — thank you for your support.</p>
     </div>
     <div class="footer-col">
-      <h4>Posts</h4>
+      <h4>Browse</h4>
       <ul>
-        <li><a href="posts/pantry-organization-guide.html">Pantry Guide</a></li>
-        <li><a href="posts/closet-system-review.html">Closet Review</a></li>
-        <li><a href="posts/10-minute-declutter.html">10-Minute Declutter</a></li>
+        <li><a href="index.html#products">This Week's Picks</a></li>
+        <li><a href="index.html#rooms">By Room</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#archive">Past Favorites</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Legal &amp; Info</h4>
+      <h4>Rooms</h4>
+      <ul>
+        <li><a href="rooms/kitchen.html">Kitchen &amp; Pantry</a></li>
+        <li><a href="rooms/closet.html">Closet &amp; Bedroom</a></li>
+        <li><a href="rooms/bathroom.html">Bathroom</a></li>
+        <li><a href="rooms/office.html">Home Office</a></li>
+        <li><a href="rooms/living-room.html">Living Room</a></li>
+        <li><a href="rooms/garage.html">Garage</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
       <ul>
         <li><a href="disclosure.html">Affiliate Disclosure</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">Pinterest ↗</a></li>
+        <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">Pinterest</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 NeatNest Home. All rights reserved. | NeatNest Home is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program. <a href="disclosure.html" style="color:rgba(255,255,255,.6);">Disclosure</a></p>
+    <div class="container">
+      <p>&copy; 2025 NeatNest Home &mdash; Amazon Associates Program participant. Affiliate links earn us a small commission at no extra cost to you. <a href="disclosure.html">Disclosure</a></p>
+    </div>
   </div>
 </footer>
 
