@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — NeatNest Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F8F5F0;
+      --brown: #5C4A32;
+      --sage:  #7A9E7E;
+      --warm:  #EDE8DF;
+      --text:  #2D2520;
+      --muted: #7A6A5A;
+      --white: #FFFFFF;
+      --sidebar-w: 240px;
+      --shadow: 0 2px 12px rgba(92,74,50,.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--brown);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 50;
+      transition: transform .3s;
+    }
+    .sidebar-logo {
+      padding: 1.5rem 1.25rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .sidebar-logo .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .sidebar-logo .brand span { color: var(--sage); }
+    .sidebar-logo .subtitle {
+      font-size: .72rem;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-top: .2rem;
+    }
+    .sidebar-nav {
+      flex: 1;
+      padding: 1.25rem .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      width: 100%;
+      padding: .75rem 1rem;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: rgba(255,255,255,.7);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: background .2s, color .2s;
+    }
+    .nav-btn:hover  { background: rgba(255,255,255,.08); color: var(--white); }
+    .nav-btn.active { background: var(--sage); color: var(--white); }
+    .nav-btn .icon  { font-size: 1.1rem; flex-shrink: 0; width: 22px; text-align: center; }
+    .sidebar-footer {
+      padding: 1rem .75rem;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .btn-logout {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      width: 100%;
+      padding: .65rem 1rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px;
+      color: rgba(255,255,255,.65);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-logout:hover { background: rgba(255,255,255,.08); color: var(--white); }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--warm);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: var(--shadow);
+    }
+    .topbar-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--brown); }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar-greeting { font-size: .85rem; color: var(--muted); }
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: var(--brown);
+      padding: .25rem;
+    }
+
+    /* ── SECTIONS ── */
+    .content { padding: 2rem; flex: 1; }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .section-header { margin-bottom: 1.75rem; }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--brown);
+      margin-bottom: .3rem;
+    }
+    .section-header p { color: var(--muted); font-size: .9rem; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--brown);
+      margin-bottom: 1.25rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--warm);
+    }
+
+    /* ── FORM ELEMENTS ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-grid.single { grid-template-columns: 1fr; }
+    .form-group { margin-bottom: 0; }
+    .form-group.full { grid-column: 1 / -1; }
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: .35rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    input[type="text"],
+    input[type="url"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: .7rem .9rem;
+      border: 1.5px solid var(--warm);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      background: var(--cream);
+      color: var(--text);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--sage);
+      box-shadow: 0 0 0 3px rgba(122,158,126,.15);
+    }
+    textarea { resize: vertical; min-height: 150px; line-height: 1.6; }
+    .input-note { font-size: .75rem; color: var(--muted); margin-top: .3rem; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.4rem;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .875rem;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+    .btn-primary   { background: var(--brown); color: var(--white); }
+    .btn-primary:hover   { background: #4a3a26; }
+    .btn-secondary { background: var(--sage); color: var(--white); }
+    .btn-secondary:hover { background: #699070; }
+    .btn-outline   { background: transparent; color: var(--brown); border: 1.5px solid var(--brown); }
+    .btn-outline:hover   { background: var(--brown); color: var(--white); }
+    .btn-ghost     { background: var(--warm); color: var(--brown); }
+    .btn-ghost:hover     { background: #ddd6cc; }
+    .btn-danger    { background: #e74c3c; color: var(--white); }
+    .btn-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    /* ── GENERATED OUTPUT ── */
+    .output-box {
+      display: none;
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      position: relative;
+    }
+    .output-box.show { display: block; }
+    .output-box pre {
+      color: #d4d4d4;
+      font-family: 'Courier New', monospace;
+      font-size: .78rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 320px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+    .copy-btn {
+      position: absolute;
+      top: .75rem;
+      right: .75rem;
+      background: var(--sage);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: .35rem .7rem;
+      font-size: .75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .copy-btn:hover { background: var(--brown); }
+
+    /* ── SUCCESS TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--brown);
+      color: var(--white);
+      padding: .85rem 1.5rem;
+      border-radius: 10px;
+      font-size: .875rem;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      transform: translateY(120%);
+      transition: transform .3s ease;
+      z-index: 200;
+    }
+    .toast.show { transform: translateY(0); }
+
+    /* ── PREVIEW MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--warm);
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 1;
+    }
+    .modal-header h3 { font-family: 'Playfair Display', serif; color: var(--brown); }
+    .modal-close {
+      background: var(--warm);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: #ccc; }
+    .modal-body { padding: 1.5rem; }
+
+    /* ── PIN PREVIEW ── */
+    .pin-card {
+      background: var(--white);
+      border: 1px solid var(--warm);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 380px;
+    }
+    .pin-image-placeholder {
+      background: linear-gradient(135deg, var(--warm), var(--cream));
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .pin-body { padding: 1rem; }
+    .pin-body .pin-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .pin-body .pin-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: .75rem; }
+    .pin-body .pin-tags { font-size: .75rem; color: #e60023; line-height: 1.6; }
+    .pin-body .pin-ad-badge {
+      display: inline-block;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      margin-bottom: .5rem;
+    }
+
+    /* ── ALL POSTS GRID ── */
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    .post-card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      border-left: 4px solid var(--sage);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .post-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(92,74,50,.12); }
+    .post-card .post-tag {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--sage);
+      margin-bottom: .4rem;
+    }
+    .post-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--brown);
+      margin-bottom: .5rem;
+      line-height: 1.3;
+    }
+    .post-card .post-meta { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .post-card-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .post-card-actions .btn { font-size: .78rem; padding: .4rem .85rem; }
+
+    /* ── TAG BADGE ── */
+    .badge {
+      display: inline-block;
+      background: var(--warm);
+      color: var(--brown);
+      font-size: .72rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 50px;
+      margin-bottom: .75rem;
+    }
+    .badge.green { background: #e8f3e8; color: #2d6a32; }
+
+    /* ── AMAZON TAG INDICATOR ── */
+    .tag-applied {
+      display: none;
+      align-items: center;
+      gap: .4rem;
+      font-size: .78rem;
+      color: #2d6a32;
+      background: #e8f3e8;
+      border-radius: 6px;
+      padding: .35rem .7rem;
+      margin-top: .4rem;
+    }
+    .tag-applied.show { display: flex; }
+
+    /* ── STAT CARDS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
+    .stat-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .stat-card .stat-icon { font-size: 1.75rem; margin-bottom: .4rem; }
+    .stat-card .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--brown);
+      line-height: 1;
+    }
+    .stat-card .stat-label { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+
+    /* ── INSTRUCTIONS BOX ── */
+    .instructions {
+      display: none;
+      background: #e8f3e8;
+      border: 1.5px solid #a8d5aa;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .instructions.show { display: block; }
+    .instructions h4 { color: #2d6a32; font-size: .9rem; margin-bottom: .75rem; display: flex; align-items: center; gap: .4rem; }
+    .instructions ol { padding-left: 1.25rem; }
+    .instructions li { font-size: .85rem; color: #2d6a32; margin-bottom: .4rem; }
+    .instructions code {
+      background: rgba(0,0,0,.07);
+      border-radius: 4px;
+      padding: .1rem .35rem;
+      font-family: 'Courier New', monospace;
+      font-size: .82rem;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .hamburger-btn { display: flex; }
+      .topbar { padding: .85rem 1rem; }
+      .content { padding: 1.25rem 1rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .form-group.full { grid-column: 1; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .posts-grid { grid-template-columns: 1fr; }
+      .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 45; }
+      .overlay.show { display: block; }
+    }
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .btn-row { flex-direction: column; }
+      .btn-row .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">🏡 NeatNest <span>Home</span></div>
+    <div class="subtitle">Content Dashboard</div>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-btn active" data-section="overview" onclick="showSection('overview',this)">
+      <span class="icon">📊</span> Overview
+    </button>
+    <button class="nav-btn" data-section="new-post" onclick="showSection('new-post',this)">
+      <span class="icon">✍️</span> New Post
+    </button>
+    <button class="nav-btn" data-section="new-product" onclick="showSection('new-product',this)">
+      <span class="icon">🛒</span> New Product
+    </button>
+    <button class="nav-btn" data-section="new-pin" onclick="showSection('new-pin',this)">
+      <span class="icon">📌</span> New Pin
+    </button>
+    <button class="nav-btn" data-section="all-posts" onclick="showSection('all-posts',this)">
+      <span class="icon">📄</span> All Posts
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-logout" onclick="logout()">
+      <span>🚪</span> Log Out
+    </button>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+      <span class="topbar-title" id="topbarTitle">Overview</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-greeting">👋 Welcome back</span>
+      <a href="../index.html" target="_blank" style="font-size:.8rem;color:var(--muted);text-decoration:none;">View Site ↗</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ══════════ OVERVIEW ══════════ -->
+    <div class="section active" id="overview">
+      <div class="section-header">
+        <h2>Good to see you! 🏡</h2>
+        <p>Here's a quick snapshot of your NeatNest Home content.</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">📄</div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Published Posts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🛒</div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Product Cards</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📌</div>
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Pin Ideas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏷️</div>
+          <div class="stat-num" style="font-size:1rem;">Active</div>
+          <div class="stat-label">Affiliate Tag</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+        <div class="card" style="cursor:pointer;" onclick="showSection('new-post', document.querySelector('[data-section=new-post]'))">
+          <div style="font-size:2rem;margin-bottom:.5rem;">✍️</div>
+          <h3 style="border:none;padding:0;margin-bottom:.4rem;font-size:1rem;">Write a New Post</h3>
+          <p style="font-size:.85rem;color:var(--muted);">Create a guide or review with Amazon product links.</p>
+        </div>
+        <div class="card" style="cursor:pointer;" onclick="showSection('new-product', document.querySelector('[data-section=new-product]'))">
+          <div style="font-size:2rem;margin-bottom:.5rem;">🛒</div>
+          <h3 style="border:none;padding:0;margin-bottom:.4rem;font-size:1rem;">Add a Product Card</h3>
+          <p style="font-size:.85rem;color:var(--muted);">Generate a product card snippet for the homepage.</p>
+        </div>
+        <div class="card" style="cursor:pointer;" onclick="showSection('new-pin', document.querySelector('[data-section=new-pin]'))">
+          <div style="font-size:2rem;margin-bottom:.5rem;">📌</div>
+          <h3 style="border:none;padding:0;margin-bottom:.4rem;font-size:1rem;">Generate a Pin</h3>
+          <p style="font-size:.85rem;color:var(--muted);">Create FTC-compliant Pinterest pin content instantly.</p>
+        </div>
+        <div class="card" style="cursor:pointer;" onclick="showSection('all-posts', document.querySelector('[data-section=all-posts]'))">
+          <div style="font-size:2rem;margin-bottom:.5rem;">📄</div>
+          <h3 style="border:none;padding:0;margin-bottom:.4rem;font-size:1rem;">Manage Posts</h3>
+          <p style="font-size:.85rem;color:var(--muted);">View, edit and manage all your published posts.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.25rem;">
+        <h3>🏷️ Your Affiliate Tag</h3>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <code style="background:var(--warm);padding:.5rem 1rem;border-radius:8px;font-size:.95rem;font-family:'Courier New',monospace;color:var(--brown);font-weight:700;">tag=neatnest00-20</code>
+          <span style="font-size:.82rem;color:var(--muted);">Automatically appended to all Amazon links you generate here.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ NEW POST ══════════ -->
+    <div class="section" id="new-post">
+      <div class="section-header">
+        <h2>✍️ New Post</h2>
+        <p>Fill in the details below. Click Preview to check it, then Publish to download the HTML file.</p>
+      </div>
+
+      <div class="card">
+        <h3>Post Details</h3>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="postTitle">Post Title</label>
+            <input type="text" id="postTitle" placeholder="e.g. The Best Under-Sink Organizers for 2025" />
+          </div>
+          <div class="form-group">
+            <label for="postCategory">Category</label>
+            <select id="postCategory">
+              <option value="Kitchen">Kitchen</option>
+              <option value="Closet">Closet</option>
+              <option value="Bathroom">Bathroom</option>
+              <option value="Office">Office</option>
+              <option value="Tips">Quick Tips</option>
+              <option value="Pantry">Pantry</option>
+              <option value="Bedroom">Bedroom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="postReadTime">Read Time (mins)</label>
+            <input type="number" id="postReadTime" value="8" min="1" max="60" />
+          </div>
+          <div class="form-group full">
+            <label for="postIntro">Intro Paragraph</label>
+            <textarea id="postIntro" rows="3" placeholder="A short hook that draws the reader in..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label for="postContent">Post Content</label>
+            <textarea id="postContent" rows="10" placeholder="Write your full post content here. Use double line breaks for new paragraphs. You can use **bold text** and write section titles starting with ##"></textarea>
+            <div class="input-note">Use ## for headings, **text** for bold. Products are added below.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Featured Amazon Product</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" placeholder="e.g. OXO Good Grips POP Containers" />
+          </div>
+          <div class="form-group">
+            <label for="productRating">Rating (e.g. 4.7 / 5)</label>
+            <input type="text" id="productRating" placeholder="4.7 / 5 (8,000+ reviews)" />
+          </div>
+          <div class="form-group full">
+            <label for="productDesc">Product Description</label>
+            <textarea id="productDesc" rows="2" placeholder="Why you recommend it — 1-2 sentences."></textarea>
+          </div>
+          <div class="form-group full">
+            <label for="productLink">Amazon Link</label>
+            <input type="url" id="productLink" placeholder="https://www.amazon.com/s?k=..." oninput="autoTagLink(this,'postTagStatus')" />
+            <div class="tag-applied" id="postTagStatus">✅ tag=neatnest00-20 will be applied automatically</div>
+            <div class="input-note">Paste any Amazon URL — the affiliate tag is added automatically.</div>
+          </div>
+          <div class="form-group">
+            <label for="productEmoji">Product Emoji</label>
+            <input type="text" id="productEmoji" value="🛒" maxlength="4" />
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="previewPost()">👁️ Preview Post</button>
+        <button class="btn btn-secondary" onclick="publishPost()">⬇️ Download HTML File</button>
+        <button class="btn btn-outline" onclick="resetForm('post')">↺ Reset</button>
+      </div>
+
+      <div class="instructions" id="postInstructions">
+        <h4>✅ Post HTML downloaded!</h4>
+        <ol>
+          <li>Move the downloaded <code>.html</code> file into your <code>posts/</code> folder on your Desktop.</li>
+          <li>Open Terminal and run: <code>cd ~/Desktop/neatnesthome-site</code></li>
+          <li>Run: <code>git add . && git commit -m "Add new post" && git push</code></li>
+          <li>Your post will be live at <code>https://neatnesthome.github.io/posts/your-post.html</code></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ══════════ NEW PRODUCT ══════════ -->
+    <div class="section" id="new-product">
+      <div class="section-header">
+        <h2>🛒 New Product Card</h2>
+        <p>Generate a product card snippet to paste into the homepage or any post.</p>
+      </div>
+
+      <div class="card">
+        <h3>Product Details</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pName">Product Name</label>
+            <input type="text" id="pName" placeholder="e.g. Vtopmart Clear Pantry Bins (Set of 8)" />
+          </div>
+          <div class="form-group">
+            <label for="pCategory">Badge / Label</label>
+            <input type="text" id="pCategory" placeholder="e.g. Best Seller, Editor's Pick" />
+          </div>
+          <div class="form-group">
+            <label for="pEmoji">Product Emoji</label>
+            <input type="text" id="pEmoji" value="🗂️" maxlength="4" />
+          </div>
+          <div class="form-group">
+            <label for="pRating">Rating</label>
+            <input type="text" id="pRating" placeholder="★★★★★ 4.7 / 5" />
+          </div>
+          <div class="form-group full">
+            <label for="pDesc">Description</label>
+            <textarea id="pDesc" rows="3" placeholder="2-3 sentences on why this product is great."></textarea>
+          </div>
+          <div class="form-group full">
+            <label for="pLink">Amazon Link</label>
+            <input type="url" id="pLink" placeholder="https://www.amazon.com/s?k=..." oninput="autoTagLink(this,'prodTagStatus')" />
+            <div class="tag-applied" id="prodTagStatus">✅ tag=neatnest00-20 will be applied automatically</div>
+          </div>
+          <div class="form-group">
+            <label for="pStyle">Card Style</label>
+            <select id="pStyle">
+              <option value="box">Full Product Box (for posts)</option>
+              <option value="mini">Mini Card (for homepage grid)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="generateProduct()">⚡ Generate HTML Snippet</button>
+        <button class="btn btn-outline" onclick="resetForm('product')">↺ Reset</button>
+      </div>
+
+      <div class="output-box" id="productOutput">
+        <button class="copy-btn" onclick="copyOutput('productCode')">Copy</button>
+        <pre id="productCode"></pre>
+      </div>
+
+      <div class="instructions show" id="productInstructions" style="display:none;">
+        <h4>📋 How to add this card</h4>
+        <ol>
+          <li>Copy the HTML snippet above.</li>
+          <li>Open <code>index.html</code> in your editor.</li>
+          <li>Find the <code>&lt;!-- Top Picks grid --&gt;</code> section and paste inside it.</li>
+          <li>Save, commit, and push to GitHub.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ══════════ NEW PIN ══════════ -->
+    <div class="section" id="new-pin">
+      <div class="section-header">
+        <h2>📌 New Pinterest Pin</h2>
+        <p>Generate FTC-compliant pin content — title, description, and hashtags — ready to paste into Pinterest.</p>
+      </div>
+
+      <div class="card">
+        <h3>Pin Topic</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pinTopic">Topic or Product</label>
+            <input type="text" id="pinTopic" placeholder="e.g. pantry organization, closet bins, bathroom storage" />
+          </div>
+          <div class="form-group">
+            <label for="pinType">Pin Type</label>
+            <select id="pinType">
+              <option value="guide">Guide / How-To</option>
+              <option value="product">Product Review</option>
+              <option value="tips">Quick Tips</option>
+              <option value="before-after">Before & After</option>
+              <option value="roundup">Product Roundup</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="pinUrl">Link URL (optional)</label>
+            <input type="url" id="pinUrl" placeholder="https://neatnesthome.github.io/posts/..." />
+            <div class="input-note">Link your pin goes to — leave blank to skip.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="generatePin()">✨ Generate Pin Content</button>
+        <button class="btn btn-outline" onclick="resetForm('pin')">↺ Reset</button>
+      </div>
+
+      <!-- Pin Preview -->
+      <div id="pinPreviewWrap" style="display:none; margin-top:1.5rem;">
+        <div style="display:grid;grid-template-columns:380px 1fr;gap:1.5rem;align-items:start;">
+          <div>
+            <div style="font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;">Pin Preview</div>
+            <div class="pin-card">
+              <div class="pin-image-placeholder" id="pinEmoji">🏡</div>
+              <div class="pin-body">
+                <div class="pin-ad-badge">#ad</div>
+                <div class="pin-title" id="pinPreviewTitle">—</div>
+                <div class="pin-desc"  id="pinPreviewDesc">—</div>
+                <div class="pin-tags"  id="pinPreviewTags">—</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;">Copy &amp; Paste to Pinterest</div>
+            <div class="output-box show" style="position:relative;">
+              <button class="copy-btn" onclick="copyOutput('pinCode')">Copy All</button>
+              <pre id="pinCode"></pre>
+            </div>
+            <div style="margin-top:.75rem;padding:.75rem;background:#fff3cd;border-radius:8px;font-size:.78rem;color:#856404;">
+              <strong>⚖️ FTC Note:</strong> The <code>#ad</code> disclosure is included in every generated pin. Keep it visible and do not remove it when posting.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ALL POSTS ══════════ -->
+    <div class="section" id="all-posts">
+      <div class="section-header">
+        <h2>📄 All Posts</h2>
+        <p>Manage your published blog posts. Click Edit to open or re-download a post.</p>
+      </div>
+
+      <div class="posts-grid" id="postsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ── PREVIEW MODAL ── -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Post Preview</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="previewModalBody"></div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+  // ── AUTH CHECK ──
+  if (sessionStorage.getItem('neatnest_admin_auth') !== 'true') {
+    window.location.replace('index.html');
+  }
+
+  // ── NAVIGATION ──
+  const sectionTitles = {
+    'overview':    'Overview',
+    'new-post':    'New Post',
+    'new-product': 'New Product',
+    'new-pin':     'New Pinterest Pin',
+    'all-posts':   'All Posts',
+  };
+
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (btn) btn.classList.add('active');
+    else {
+      const b = document.querySelector(`[data-section="${id}"]`);
+      if (b) b.classList.add('active');
+    }
+    document.getElementById('topbarTitle').textContent = sectionTitles[id] || id;
+    // close sidebar on mobile
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+    window.scrollTo(0, 0);
+  }
+
+  // ── SIDEBAR TOGGLE (MOBILE) ──
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
+  document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  });
+
+  // ── LOGOUT ──
+  function logout() {
+    sessionStorage.removeItem('neatnest_admin_auth');
+    window.location.href = 'index.html';
+  }
+
+  // ── TOAST ──
+  function showToast(msg, duration = 3000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), duration);
+  }
+
+  // ── COPY TO CLIPBOARD ──
+  function copyOutput(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => showToast('✅ Copied to clipboard!'));
+  }
+
+  // ── AMAZON TAG AUTO-INJECT ──
+  function addAmazonTag(url) {
+    if (!url || !url.includes('amazon.com')) return url;
+    try {
+      const u = new URL(url);
+      u.searchParams.set('tag', 'neatnest00-20');
+      return u.toString();
+    } catch {
+      const sep = url.includes('?') ? '&' : '?';
+      // Remove existing tag param if present
+      const cleaned = url.replace(/[?&]tag=[^&]*/g, '');
+      return cleaned + sep + 'tag=neatnest00-20';
+    }
+  }
+
+  function autoTagLink(input, statusId) {
+    const v = input.value.trim();
+    const el = document.getElementById(statusId);
+    if (v && v.includes('amazon.com')) el.classList.add('show');
+    else el.classList.remove('show');
+  }
+
+  // ── SLUG GENERATOR ──
+  function toSlug(str) {
+    return str.toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
+  }
+
+  // ── SIMPLE MARKDOWN ──
+  function simpleMarkdown(text) {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^(?!<h[23])(.+)$/gm, '$1');
+  }
+
+  // ── DATE HELPERS ──
+  function todayFormatted() {
+    return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  // ── DOWNLOAD FILE ──
+  function downloadFile(filename, content) {
+    const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ── MODAL ──
+  function closeModal() {
+    document.getElementById('previewModal').classList.remove('show');
+  }
+  document.getElementById('previewModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ══════════════════════════════
+  //  NEW POST FUNCTIONS
+  // ══════════════════════════════
+  function getPostData() {
+    return {
+      title:       document.getElementById('postTitle').value.trim()   || 'Untitled Post',
+      category:    document.getElementById('postCategory').value,
+      readTime:    document.getElementById('postReadTime').value        || '8',
+      intro:       document.getElementById('postIntro').value.trim()    || '',
+      content:     document.getElementById('postContent').value.trim()  || '',
+      productName: document.getElementById('productName').value.trim()  || '',
+      productRating: document.getElementById('productRating').value.trim() || '★★★★★ 4.7 / 5',
+      productDesc: document.getElementById('productDesc').value.trim()  || '',
+      productLink: addAmazonTag(document.getElementById('productLink').value.trim()),
+      productEmoji: document.getElementById('productEmoji').value.trim() || '🛒',
+    };
+  }
+
+  function generatePostHTML(d) {
+    const slug = toSlug(d.title);
+    const date = todayFormatted();
+    const contentHTML = d.content
+      .split(/\n\n+/)
+      .map(block => {
+        if (block.startsWith('## ')) return `<h2>${block.slice(3)}</h2>`;
+        if (block.startsWith('### ')) return `<h3>${block.slice(4)}</h3>`;
+        return `<p>${block.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ')}</p>`;
+      }).join('\n    ');
+
+    const productSection = d.productName ? `
+    <!-- Product Box -->
+    <div class="product-box">
+      <div class="product-box-icon">${d.productEmoji}</div>
+      <div class="product-box-content">
+        <h4>${escHtml(d.productName)}</h4>
+        <div class="product-rating">${escHtml(d.productRating)}</div>
+        <p>${escHtml(d.productDesc)}</p>
+        <a href="${escHtml(d.productLink)}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
+      </div>
+    </div>` : '';
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escHtml(d.title)} — NeatNest Home</title>
+  <meta name="description" content="${escHtml(d.intro.slice(0,155))}" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>" />
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">🏡 NeatNest <span>Home</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="pantry-organization-guide.html">Pantry</a></li>
+      <li><a href="closet-system-review.html">Closets</a></li>
+      <li><a href="10-minute-declutter.html">Declutter</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-nav">Pinterest ↗</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ── POST HEADER ── -->
+<div class="post-header">
+  <div class="container--narrow">
+    <div class="breadcrumb" style="justify-content:center;">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>${escHtml(d.category)}</span>
+    </div>
+    <div class="post-meta">
+      <span>🗂️ ${escHtml(d.category)}</span>
+      <span>📅 ${date}</span>
+      <span>⏱️ ${d.readTime} min read</span>
+    </div>
+    <h1>${escHtml(d.title)}</h1>
+    <p class="post-intro">${escHtml(d.intro)}</p>
+  </div>
+</div>
+
+<!-- ── POST BODY ── -->
+<div class="post-body">
+  <div class="container--narrow">
+
+    <div class="disclosure-banner">
+      <strong>Disclosure:</strong> This post contains affiliate links. If you purchase through our links, we earn a small commission at no extra cost to you. <a href="../disclosure.html">Read our full affiliate disclosure →</a>
+    </div>
+
+    ${contentHTML}
+    ${productSection}
+
+    <p style="font-size:.82rem; color:var(--muted); margin-top:2rem;"><em>This post contains affiliate links. As an Amazon Associate, NeatNest Home earns from qualifying purchases at no additional cost to you. <a href="../disclosure.html">Read our full disclosure.</a></em></p>
+
+  </div>
+</div>
+
+<!-- ── RELATED POSTS ── -->
+<section class="related-posts">
+  <div class="container">
+    <div class="section-header">
+      <h2>You Might Also Like</h2>
+    </div>
+    <div class="card-grid card-grid--2">
+      <article class="card">
+        <div style="font-size:3rem;background:var(--warm);min-height:140px;display:flex;align-items:center;justify-content:center;">🥫</div>
+        <div class="card-body">
+          <span class="card-tag">Pantry Organization</span>
+          <h3><a href="pantry-organization-guide.html">The Complete Pantry Organization Guide</a></h3>
+          <p>Build a pantry that stays organized for good.</p>
+        </div>
+        <div class="card-footer">
+          <a href="pantry-organization-guide.html" class="btn btn-secondary" style="font-size:.85rem;padding:.55rem 1.1rem;">Read Guide →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div style="font-size:3rem;background:var(--warm);min-height:140px;display:flex;align-items:center;justify-content:center;">⏱️</div>
+        <div class="card-body">
+          <span class="card-tag">Quick Tips</span>
+          <h3><a href="10-minute-declutter.html">The 10-Minute Declutter Checklist</a></h3>
+          <p>Ten focused minutes, every room, zero stress.</p>
+        </div>
+        <div class="card-footer">
+          <a href="10-minute-declutter.html" class="btn btn-secondary" style="font-size:.85rem;padding:.55rem 1.1rem;">Get Checklist →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── PINTEREST ── -->
+<section class="pinterest-strip">
+  <div class="container">
+    <h2>📌 Save This on Pinterest</h2>
+    <p>Pin for later and follow us for daily organization inspiration.</p>
+    <a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener" class="btn-pinterest">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      Follow @NeetNestHome
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo" style="color:#fff;">🏡 NeatNest <span style="color:var(--sage);">Home</span></a>
+      <p>Practical home storage and organization ideas for real people.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Posts</h4>
+      <ul>
+        <li><a href="pantry-organization-guide.html">Pantry Guide</a></li>
+        <li><a href="closet-system-review.html">Closet Review</a></li>
+        <li><a href="10-minute-declutter.html">10-Minute Declutter</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal &amp; Info</h4>
+      <ul>
+        <li><a href="../disclosure.html">Affiliate Disclosure</a></li>
+        <li><a href="../privacy.html">Privacy Policy</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="https://pinterest.com/NeetNestHome" target="_blank" rel="noopener">Pinterest ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; ${new Date().getFullYear()} NeatNest Home. All rights reserved. | Amazon Associate — we earn from qualifying purchases. <a href="../disclosure.html" style="color:rgba(255,255,255,.6);">Disclosure</a></p>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+<\/script>
+</body>
+</html>`;
+  }
+
+  function previewPost() {
+    const d = getPostData();
+    const body = document.getElementById('previewModalBody');
+    const contentHTML = d.content.split(/\n\n+/).map(b => {
+      if (b.startsWith('## ')) return `<h2 style="font-family:'Playfair Display',serif;color:#5C4A32;margin:1.5rem 0 .5rem;">${b.slice(3)}</h2>`;
+      if (b.startsWith('### ')) return `<h3 style="font-family:'Playfair Display',serif;color:#5C4A32;margin:1.25rem 0 .4rem;">${b.slice(4)}</h3>`;
+      return `<p style="margin-bottom:1rem;line-height:1.7;">${b.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ')}</p>`;
+    }).join('');
+    body.innerHTML = `
+      <div style="font-family:'DM Sans',sans-serif;color:#2D2520;">
+        <div style="background:linear-gradient(135deg,#EDE8DF,#F8F5F0);padding:2rem;border-radius:8px;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-size:.75rem;color:#7A9E7E;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem;">${d.category}</div>
+          <h1 style="font-family:'Playfair Display',serif;color:#5C4A32;font-size:1.6rem;line-height:1.25;margin-bottom:.75rem;">${escHtml(d.title)}</h1>
+          <p style="color:#7A6A5A;font-size:.95rem;">${escHtml(d.intro)}</p>
+          <div style="font-size:.8rem;color:#7A6A5A;margin-top:.75rem;">📅 ${todayFormatted()} &nbsp;·&nbsp; ⏱️ ${d.readTime} min read</div>
+        </div>
+        <div style="background:#EDE8DF;border-left:4px solid #7A9E7E;padding:.75rem 1rem;font-size:.82rem;color:#7A6A5A;border-radius:0 8px 8px 0;margin-bottom:1.5rem;">
+          <strong>Disclosure:</strong> This post contains affiliate links.
+        </div>
+        ${contentHTML}
+        ${d.productName ? `
+        <div style="border:2px solid #EDE8DF;border-radius:10px;padding:1.25rem;margin:1.5rem 0;display:flex;gap:1rem;">
+          <div style="font-size:2rem;">${d.productEmoji}</div>
+          <div>
+            <h4 style="color:#5C4A32;margin-bottom:.25rem;">${escHtml(d.productName)}</h4>
+            <div style="color:#FF9900;font-size:.8rem;margin-bottom:.35rem;">${escHtml(d.productRating)}</div>
+            <p style="font-size:.85rem;color:#7A6A5A;margin-bottom:.6rem;">${escHtml(d.productDesc)}</p>
+            <span style="background:#FF9900;color:#111;font-size:.8rem;font-weight:700;padding:.4rem 1rem;border-radius:50px;">🛒 View on Amazon</span>
+          </div>
+        </div>` : ''}
+      </div>`;
+    document.getElementById('previewModal').classList.add('show');
+  }
+
+  function publishPost() {
+    const d = getPostData();
+    const slug = toSlug(d.title) || 'new-post';
+    const html = generatePostHTML(d);
+    downloadFile(slug + '.html', html);
+    document.getElementById('postInstructions').classList.add('show');
+    showToast('⬇️ Post downloaded! Check your Downloads folder.');
+  }
+
+  function resetForm(type) {
+    if (type === 'post') {
+      ['postTitle','postIntro','postContent','productName','productRating','productDesc','productLink'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('productEmoji').value = '🛒';
+      document.getElementById('postTagStatus').classList.remove('show');
+      document.getElementById('postInstructions').classList.remove('show');
+    } else if (type === 'product') {
+      ['pName','pCategory','pEmoji','pRating','pDesc','pLink'].forEach(id => { const el = document.getElementById(id); if(el) el.value = el.id==='pEmoji'?'🗂️':''; });
+      document.getElementById('prodTagStatus').classList.remove('show');
+      document.getElementById('productOutput').classList.remove('show');
+      document.getElementById('productInstructions').style.display = 'none';
+    } else if (type === 'pin') {
+      ['pinTopic','pinUrl'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('pinPreviewWrap').style.display = 'none';
+    }
+  }
+
+  // ══════════════════════════════
+  //  NEW PRODUCT FUNCTIONS
+  // ══════════════════════════════
+  function generateProduct() {
+    const name    = document.getElementById('pName').value.trim()     || 'Product Name';
+    const badge   = document.getElementById('pCategory').value.trim() || 'Top Pick';
+    const emoji   = document.getElementById('pEmoji').value.trim()    || '🗂️';
+    const rating  = document.getElementById('pRating').value.trim()   || '★★★★★ 4.7 / 5';
+    const desc    = document.getElementById('pDesc').value.trim()     || '';
+    const rawLink = document.getElementById('pLink').value.trim();
+    const link    = addAmazonTag(rawLink);
+    const style   = document.getElementById('pStyle').value;
+
+    let html = '';
+    if (style === 'box') {
+      html = `<div class="product-box">
+  <div class="product-box-icon">${emoji}</div>
+  <div class="product-box-content">
+    <h4>${escHtml(name)}</h4>
+    <div class="product-rating">${escHtml(rating)}</div>
+    <p>${escHtml(desc)}</p>
+    <a href="${escHtml(link)}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
+  </div>
+</div>`;
+    } else {
+      html = `<div class="card" style="flex-direction:row;align-items:center;padding:1.25rem;gap:1rem;">
+  <div style="font-size:2.2rem;flex-shrink:0;">${emoji}</div>
+  <div>
+    <div class="card-tag">${escHtml(badge)}</div>
+    <h4 style="font-size:1rem;margin-bottom:.35rem;">${escHtml(name)}</h4>
+    <a href="${escHtml(link)}" target="_blank" rel="noopener sponsored" class="btn-amazon" style="font-size:.8rem;padding:.45rem 1rem;">View on Amazon ↗</a>
+  </div>
+</div>`;
+    }
+
+    document.getElementById('productCode').textContent = html;
+    document.getElementById('productOutput').classList.add('show');
+    document.getElementById('productInstructions').style.display = 'block';
+    document.getElementById('productInstructions').classList.add('show');
+    showToast('✅ Product card generated!');
+  }
+
+  // ══════════════════════════════
+  //  PIN GENERATOR
+  // ══════════════════════════════
+  const PIN_TEMPLATES = {
+    guide: {
+      titleFn: t => `The Ultimate ${capitalize(t)} Guide (That Actually Works)`,
+      descFn:  t => `Ready to finally get your ${t} organized? ✨ I tried everything so you don't have to — here are the exact products and step-by-step system that transformed my space. Click for the full guide + all product links! #ad`,
+      emoji: '📋',
+    },
+    product: {
+      titleFn: t => `The Best ${capitalize(t)} Products I've Tested`,
+      descFn:  t => `I spent months testing ${t} solutions and these are the ones that actually held up. Honest review — no fluff. Tap for prices, links, and my full breakdown! #ad`,
+      emoji: '⭐',
+    },
+    tips: {
+      titleFn: t => `${capitalize(t)} Tips That Take Under 10 Minutes`,
+      descFn:  t => `You don't need a whole weekend to get your ${t} under control. These quick wins make a HUGE difference in under 10 minutes. Save this for the next time you need to reset! #ad`,
+      emoji: '⚡',
+    },
+    'before-after': {
+      titleFn: t => `${capitalize(t)} Before & After — Total Transformation`,
+      descFn:  t => `This ${t} before and after will motivate you to finally tackle yours! Every product linked, total cost breakdown included. It's so much easier than I expected. #ad`,
+      emoji: '✨',
+    },
+    roundup: {
+      titleFn: t => `Top 10 ${capitalize(t)} Products on Amazon Right Now`,
+      descFn:  t => `These are the ${t} organizers everyone is buying — and they're all on Amazon with fast shipping! I've rounded up the best options at every price point. Save this list! #ad`,
+      emoji: '🛒',
+    },
+  };
+
+  const HASHTAG_MAP = {
+    pantry:      '#pantryorganization #pantrygoals #kitchenorganization #pantryinspo #organizedpantry #pantryideas',
+    closet:      '#closetorganization #closetgoals #wardrobeorganization #closetinspo #organizedcloset #closetideas',
+    bathroom:    '#bathroomorganization #bathroomgoals #bathroomstorage #organizedbathroom #bathroominspo',
+    kitchen:     '#kitchenorganization #kitchengoals #kitchenstorage #organizedkitchen #kitcheninspo',
+    office:      '#officeorganization #homeoffice #deskorganization #workspacegoals #organizedoffice',
+    bedroom:     '#bedroomorganization #bedroomgoals #bedroomstorage #organizedbedroom #bedroominspo',
+    storage:     '#storagesolutions #homestorage #storageorganization #storageideas',
+    declutter:   '#decluttertips #declutterchallenge #minimalisthome #decluttering #simplify',
+    laundry:     '#laundryroom #laundryroomorganization #laundrygoals #organizedlaundry',
+    default:     '#homeorganization #organizedliving #homeorganizer #organizationhacks #tidyhome',
+  };
+
+  function getHashtags(topic) {
+    const t = topic.toLowerCase();
+    let tags = HASHTAG_MAP.default;
+    for (const [key, val] of Object.entries(HASHTAG_MAP)) {
+      if (t.includes(key)) { tags = val + ' ' + HASHTAG_MAP.default; break; }
+    }
+    return tags + ' #neatnesthome #homeinspo #organizationgoals #ad';
+  }
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function generatePin() {
+    const topic   = document.getElementById('pinTopic').value.trim();
+    const type    = document.getElementById('pinType').value;
+    const url     = document.getElementById('pinUrl').value.trim();
+    if (!topic) { showToast('⚠️ Please enter a topic first.'); return; }
+
+    const tmpl    = PIN_TEMPLATES[type] || PIN_TEMPLATES.guide;
+    const title   = tmpl.titleFn(topic);
+    const desc    = tmpl.descFn(topic);
+    const tags    = getHashtags(topic);
+    const emoji   = tmpl.emoji;
+
+    const fullText = `TITLE (60 chars max):
+${title}
+
+DESCRIPTION:
+${desc}
+${url ? '\nLINK: ' + url : ''}
+
+HASHTAGS:
+${tags}`;
+
+    document.getElementById('pinPreviewTitle').textContent  = title;
+    document.getElementById('pinPreviewDesc').textContent   = desc;
+    document.getElementById('pinPreviewTags').textContent   = tags;
+    document.getElementById('pinEmoji').textContent         = emoji;
+    document.getElementById('pinCode').textContent          = fullText;
+    document.getElementById('pinPreviewWrap').style.display = 'grid';
+
+    // Fix display on mobile
+    if (window.innerWidth < 640) {
+      document.getElementById('pinPreviewWrap').style.display = 'block';
+    }
+
+    showToast('📌 Pin content generated!');
+  }
+
+  // ══════════════════════════════
+  //  ALL POSTS DATA
+  // ══════════════════════════════
+  const POSTS = [
+    {
+      title:    'The Complete Pantry Organization Guide (2025)',
+      category: 'Pantry Organization',
+      date:     'March 2025',
+      file:     '../posts/pantry-organization-guide.html',
+      emoji:    '🥫',
+    },
+    {
+      title:    'Best Closet Organization Systems Reviewed (2025)',
+      category: 'Closet Review',
+      date:     'March 2025',
+      file:     '../posts/closet-system-review.html',
+      emoji:    '👗',
+    },
+    {
+      title:    'The 10-Minute Declutter: Room-by-Room Checklist',
+      category: 'Quick Tips',
+      date:     'March 2025',
+      file:     '../posts/10-minute-declutter.html',
+      emoji:    '⏱️',
+    },
+  ];
+
+  function renderAllPosts() {
+    const grid = document.getElementById('postsGrid');
+    grid.innerHTML = POSTS.map((p, i) => `
+      <div class="post-card">
+        <div class="post-tag">${p.emoji} ${p.category}</div>
+        <h4>${escHtml(p.title)}</h4>
+        <div class="post-meta">📅 Published ${p.date}</div>
+        <div class="post-card-actions">
+          <a href="${p.file}" target="_blank" class="btn btn-ghost">👁️ View</a>
+          <button class="btn btn-outline" onclick="editPostHint(${i})">✏️ Edit</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function editPostHint(i) {
+    const p = POSTS[i];
+    const file = p.file.replace('../','');
+    showToast(`📝 Open posts/${file.split('/').pop()} in your editor to make changes.`, 5000);
+    const body = document.getElementById('previewModalBody');
+    body.innerHTML = `
+      <div style="font-family:'DM Sans',sans-serif;">
+        <h3 style="font-family:'Playfair Display',serif;color:#5C4A32;margin-bottom:1rem;">${escHtml(p.title)}</h3>
+        <div style="background:#e8f3e8;border:1.5px solid #a8d5aa;border-radius:10px;padding:1.25rem;">
+          <h4 style="color:#2d6a32;margin-bottom:.75rem;">How to Edit This Post</h4>
+          <ol style="padding-left:1.25rem;color:#2d6a32;">
+            <li style="margin-bottom:.5rem;">Open <code style="background:rgba(0,0,0,.07);padding:.1rem .35rem;border-radius:4px;font-family:monospace;">${file}</code> in your code editor.</li>
+            <li style="margin-bottom:.5rem;">Make your changes and save the file.</li>
+            <li style="margin-bottom:.5rem;">In Terminal: <code style="background:rgba(0,0,0,.07);padding:.1rem .35rem;border-radius:4px;font-family:monospace;">cd ~/Desktop/neatnesthome-site</code></li>
+            <li style="margin-bottom:.5rem;">Run: <code style="background:rgba(0,0,0,.07);padding:.1rem .35rem;border-radius:4px;font-family:monospace;">git add . && git commit -m "Update ${p.title.slice(0,30)}" && git push</code></li>
+          </ol>
+        </div>
+        <div style="margin-top:1rem;">
+          <a href="${p.file}" target="_blank" class="btn btn-secondary" style="display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:50px;background:#7A9E7E;color:#fff;font-weight:600;text-decoration:none;font-family:'DM Sans',sans-serif;">👁️ Open Post in New Tab</a>
+        </div>
+      </div>`;
+    document.getElementById('previewModal').classList.add('show');
+  }
+
+  // ── ESCAPE HTML ──
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  // ── INIT ──
+  renderAllPosts();
+
+  // Responsive pin preview
+  window.addEventListener('resize', () => {
+    const w = document.getElementById('pinPreviewWrap');
+    if (w.style.display !== 'none' && w.style.display !== '') {
+      w.style.display = window.innerWidth < 640 ? 'block' : 'grid';
+    }
+  });
+</script>
+</body>
+</html>
